@@ -212,3 +212,5 @@ gradle-app.setting
 ### Gradle Wrapper (manual) ###
 gradle/
 
+### IntelliJ (manual) ###
+.idea/
