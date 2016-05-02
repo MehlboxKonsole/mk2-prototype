@@ -42,6 +42,12 @@ dependencies {
             "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
 	        'org.springframework.boot:spring-boot-starter-actuator',
             "org.springframework.boot:spring-boot-starter-security",
+
+            "org.springframework.security:spring-security-ldap",
+            "org.springframework:spring-tx",
+            "org.apache.directory.server:apacheds-server-jndi:1.5.5",
+
+
 	        "org.springframework.ldap:spring-ldap-core:${springLdapVersion}",
             "org.webjars:bootstrap:${webBootstrapVersion}",
             "org.webjars:bootstrap-table:${webBootstrapTableVersion}",
