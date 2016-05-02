@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"s>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout/application">
 <head>
     <title>Error</title>
 </head>
 <body>
+<div layout:fragment="content">
 
-<div>
-
-    <h1>Error</h1>
+    <h1 th:text="${title}">Title</h1>
     <div id="created" th:text="${#dates.format(timestamp)}">Feb 09, 2016 7:28:00 PM GMT</div>
     <div>
         There was an unexpected error (type=<span th:text="${error}">Bad</span>, status=<span th:text="${status}">500</span>).

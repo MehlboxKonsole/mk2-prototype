@@ -4,6 +4,10 @@ buildscript {
 		springLdapVersion = '2.0.4.RELEASE'
 
         mockitoVersion = '1.10.19'
+
+        webBootstrapVersion = '3.3.6'
+        webBootstrapTableVersion = '1.9.1'
+        webJQueryVersion = '2.2.3'
 	}
 	repositories {
 		mavenCentral()
@@ -34,9 +38,15 @@ dependencies {
     compile(
             'org.springframework.boot:spring-boot-starter-web',
             "org.thymeleaf:thymeleaf-spring4",
+            "org.thymeleaf.extras:thymeleaf-extras-springsecurity4",
             "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
 	        'org.springframework.boot:spring-boot-starter-actuator',
-	        "org.springframework.ldap:spring-ldap-core:${springLdapVersion}")
+            "org.springframework.boot:spring-boot-starter-security",
+	        "org.springframework.ldap:spring-ldap-core:${springLdapVersion}",
+            "org.webjars:bootstrap:${webBootstrapVersion}",
+            "org.webjars:bootstrap-table:${webBootstrapTableVersion}",
+            "org.webjars:jquery:${webJQueryVersion}"
+    )
 	testCompile(
             'org.springframework.boot:spring-boot-starter-test',
             "org.mockito:mockito-core:${mockitoVersion}")
