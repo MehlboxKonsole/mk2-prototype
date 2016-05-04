@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/application">
@@ -10,11 +11,16 @@
 <body>
 <div layout:fragment="content">
 
-    <p>Welcome</p>
+    <h1>Welcome <span th:text="${user.displayName}" /></h1>
 
+    <div>
+        <p>What do you want to do today</p>
 
-    Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
-
+        <ul>
+            <li><a href="/showAddresses" th:text="#{mk2.action.showEmailAddresses}">Show Email Addresses</a></li>
+            <li><a href="/changePassword" th:text="#{mk2.action.changePassword}">Change Password</a></li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

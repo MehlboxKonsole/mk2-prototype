@@ -7,26 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class HomeController {
+public class EmailAddressController {
 
 	@Autowired
-	private Mk2LdapUserService userService;
+	Mk2LdapUserService userService;
 
 	@Autowired
-	private UserUtil userUtil;
+	UserUtil userUtil;
 
-	@RequestMapping("/")
-	public String home(Model model) {
-		// TODO needs error handling...
+	@RequestMapping(value = "/showAddresses", method = RequestMethod.GET)
+	public String showAll(Model model) {
 		String dn = userUtil.getCurrentUsersDn();
 
 		Mk2User user = userService.findByDn(dn);
 		model.addAttribute("user", user);
 
-		return "home";
+		return "showAddresses";
 	}
-
-
 }

@@ -19,7 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	LdapContextSource contextSource;
 
-	private static final String LDAP_GROUP_SEARCH_BASE = "ou=Groups";
+	private static final String LDAP_GROUP_SEARCH_BASE = "ou=Groups,dc=e-mehlbox,dc=eu";
 	private static final String LDAP_GROUP_SEARCH_FILTER = "uniqueMember={0}";
 
 	@Override
@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth
 				.ldapAuthentication()
 					.ldapAuthoritiesPopulator(ldapAuthoritiesPopulator())
-					.userDnPatterns("cn={0}@e-mehlbox.eu,ou=internal,ou=Users")
+					.userDnPatterns("cn={0}@e-mehlbox.eu,ou=internal,ou=Users,dc=e-mehlbox,dc=eu")
 					.groupSearchBase(LDAP_GROUP_SEARCH_BASE)
 					.groupSearchFilter(LDAP_GROUP_SEARCH_FILTER)
 					.contextSource(contextSource);

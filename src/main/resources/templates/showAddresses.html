@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/application">
+<head>
+    <meta charset="UTF-8" />
+    <title>MehlboxKonsole - Your Email Addresses</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <h1 th:text="#{mk2.title.showAddresses}">E-mail Addresses</h1>
+
+    <div class="container">
+
+        <ul>
+            <li th:each="address: ${user.emailAddresses}" th:text="${address}"></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
