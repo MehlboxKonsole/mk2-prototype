@@ -1,4 +1,4 @@
-package mk2.model.ui;
+package mk2.ui.model;
 
 import java.io.Serializable;
 

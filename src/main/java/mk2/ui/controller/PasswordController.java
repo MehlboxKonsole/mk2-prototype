@@ -1,6 +1,6 @@
 package mk2.ui.controller;
 
-import mk2.model.ui.Password;
+import mk2.ui.model.Password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;

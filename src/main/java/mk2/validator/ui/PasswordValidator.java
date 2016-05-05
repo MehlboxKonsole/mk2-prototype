@@ -1,7 +1,6 @@
 package mk2.validator.ui;
 
-import mk2.model.ui.Password;
-import org.springframework.beans.factory.annotation.Qualifier;
+import mk2.ui.model.Password;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
