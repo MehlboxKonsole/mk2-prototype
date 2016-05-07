@@ -1,5 +1,6 @@
 package mk2.ui.controller;
 
+import mk2.ui.business.ChangePassword;
 import mk2.ui.model.Password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +20,9 @@ public class PasswordController {
 	@Qualifier("PasswordValidator")
 	private Validator passwordValidator;
 
+	@Autowired
+	private ChangePassword passwordLogic;
+
 	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
 	public String changePassword(Model model) {
 		model.addAttribute("password", new Password());
@@ -29,7 +33,9 @@ public class PasswordController {
 	public String changePassword(@Valid Password password, BindingResult bindingResult, Model model) {
 		passwordValidator.validate(password, bindingResult);
 
-		if (bindingResult.hasErrors()) {
+		boolean passwordChanged = passwordLogic.changePassword(bindingResult, password);
+
+		if (!passwordChanged) {
 			model.addAttribute("password", password);
 
 			return "changePassword";

@@ -19,7 +19,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	LdapContextSource contextSource;
 
-	private static final String LDAP_GROUP_SEARCH_BASE = "ou=Groups,dc=e-mehlbox,dc=eu";
+//	private static final String LDAP_GROUP_SEARCH_BASE = "ou=Groups,dc=e-mehlbox,dc=eu";
+	private static final String LDAP_GROUP_SEARCH_BASE = "ou=Groups";
 	private static final String LDAP_GROUP_SEARCH_FILTER = "uniqueMember={0}";
 
 	@Override
@@ -39,16 +40,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth
-//				.inMemoryAuthentication()
-//					.withUser("user").password("password").roles("USER")
-//					.and()
-//					.withUser("admin").password("password").roles("ADMIN");
-
 		auth
 				.ldapAuthentication()
 					.ldapAuthoritiesPopulator(ldapAuthoritiesPopulator())
-					.userDnPatterns("cn={0}@e-mehlbox.eu,ou=internal,ou=Users,dc=e-mehlbox,dc=eu")
+//					.userDnPatterns("cn={0}@e-mehlbox.eu,ou=internal,ou=Users,dc=e-mehlbox,dc=eu")
+					.userDnPatterns("cn={0}@e-mehlbox.eu,ou=internal,ou=Users")
 					.groupSearchBase(LDAP_GROUP_SEARCH_BASE)
 					.groupSearchFilter(LDAP_GROUP_SEARCH_FILTER)
 					.contextSource(contextSource);
