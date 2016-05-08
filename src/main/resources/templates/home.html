@@ -13,6 +13,10 @@
 
     <h1>Welcome <span th:text="${user.displayName}" /></h1>
 
+    <div th:if="${message}" class="bs-callout bs-callout-success">
+        <h4 th:text="${message}">Success message</h4>
+    </div>
+
     <div>
         <p>What do you want to do today</p>
 

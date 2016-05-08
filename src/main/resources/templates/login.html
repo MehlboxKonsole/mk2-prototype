@@ -12,11 +12,12 @@
 
 	<div class="container">
 
-		<div th:if="${param.error}">
-			Invalid username and password.
+		<div th:if="${param.error}" class="bs-callout bs-callout-danger">
+			<h4>Invalid username and password.</h4>
 		</div>
-		<div th:if="${param.logout}">
-			You have been logged out.
+
+		<div th:if="${param.logout}" class="bs-callout bs-callout-info">
+			<h4>You have been logged out.</h4>
 		</div>
 
 		<form th:action="@{/login}" method="post" class="form-horizonal">

@@ -10,9 +10,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
+/**
+ * Provides controls for changing a user's password
+ *
+ * This controller provides everything needed by the UI to
+ * provide a user with a "Change password" functionality.
+ *
+ * Warning: We use Spring's flash attributes here. So once
+ *          this application starts to run in a cluster, the
+ *          sessions must be kept in sync (e.g. using Redis)
+ */
 @Controller
 public class PasswordController {
 
@@ -30,7 +41,7 @@ public class PasswordController {
 	}
 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-	public String changePassword(@Valid Password password, BindingResult bindingResult, Model model) {
+	public String changePassword(@Valid Password password, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		passwordValidator.validate(password, bindingResult);
 
 		boolean passwordChanged = passwordLogic.changePassword(bindingResult, password);
@@ -41,6 +52,7 @@ public class PasswordController {
 			return "changePassword";
 		}
 
+		redirectAttributes.addFlashAttribute("message", "Password change successful.");
 		return "redirect:/";
 	}
 }
