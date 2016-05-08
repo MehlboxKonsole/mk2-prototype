@@ -1,18 +1,13 @@
 package mk2.ui.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import java.io.Serializable;
 
 public class Password implements Serializable {
 
-	@NotEmpty
 	private String newPassword;
 
-	@NotEmpty
 	private String passwordConfirmation;
 
-	@NotEmpty
 	private String oldPassword;
 
 	public String getNewPassword() {

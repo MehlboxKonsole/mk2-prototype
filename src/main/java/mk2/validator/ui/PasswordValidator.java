@@ -26,5 +26,8 @@ public class PasswordValidator implements Validator {
 			errors.rejectValue("passwordConfirmation", "mk2.error.passwordConfirmation.notEqual");
 		}
 
+		if (password.getNewPassword().equals(password.getOldPassword())) {
+			errors.rejectValue("newPassword", "mk2.error.newPassword.equalsOld");
+		}
 	}
 }
