@@ -14,8 +14,13 @@
 
     <div class="container">
 
-        <ul>
-            <li th:each="address: ${user.emailAddresses}" th:text="${address}"></li>
+        <ul id="mk2_account_mailaddresses">
+            <li class="mk2_account_mailaddresses_domain_part" th:each="addressesPerDomain: ${addresses}">
+                <span th:text="${addressesPerDomain.key}" th:remove="tag"></span>
+                <ul>
+                    <li th:each="address, iterStat: ${addressesPerDomain.value}" th:text="${address}" th:class="${iterStat.odd}? 'odd' : 'even'"></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

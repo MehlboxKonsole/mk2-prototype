@@ -19,7 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	LdapContextSource contextSource;
-	
+
 	private static final String LDAP_GROUP_SEARCH_BASE = "ou=Groups";
 	private static final String LDAP_GROUP_SEARCH_FILTER = "uniqueMember={0}";
 
@@ -28,7 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 				.headers()
 					.addHeaderWriter(new StaticHeadersWriter("Server", "To Serve And Protect"))
-					.addHeaderWriter(new StaticHeadersWriter("X-XSS-Protection", "1"))
 					.addHeaderWriter(new StaticHeadersWriter("X-Content-Type-Options", "nosniff"))
 					.addHeaderWriter(new StaticHeadersWriter("X-Frame-Options", "DENY"));
 

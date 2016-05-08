@@ -1,5 +1,23 @@
 body { padding-top: 70px; }
 
+#mk2_account_mailaddresses, #mk2_account_mailaddresses ul {
+    list-style-type: none;
+    margin: 0;
+    /*width: 100%;*/
+}
+
+#mk2_account_mailaddresses li {
+    padding: 4px;
+}
+
+.odd {
+    background-color: #c0c0c0;
+}
+
+.even {
+    background-color: #cdcdcd;
+}
+
 /* Found here: http://cpratt.co/twitter-bootstrap-callout-css-styles/ */
 .bs-callout {
     padding: 20px;
