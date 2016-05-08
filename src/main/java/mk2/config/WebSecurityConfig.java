@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator;
 import org.springframework.security.ldap.userdetails.LdapAuthoritiesPopulator;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
 @Configuration
 @EnableWebSecurity
@@ -18,13 +19,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	LdapContextSource contextSource;
-
-//	private static final String LDAP_GROUP_SEARCH_BASE = "ou=Groups,dc=e-mehlbox,dc=eu";
+	
 	private static final String LDAP_GROUP_SEARCH_BASE = "ou=Groups";
 	private static final String LDAP_GROUP_SEARCH_FILTER = "uniqueMember={0}";
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http
+				.headers()
+					.addHeaderWriter(new StaticHeadersWriter("Server", "To Serve And Protect"))
+					.addHeaderWriter(new StaticHeadersWriter("X-XSS-Protection", "1"))
+					.addHeaderWriter(new StaticHeadersWriter("X-Content-Type-Options", "nosniff"))
+					.addHeaderWriter(new StaticHeadersWriter("X-Frame-Options", "DENY"));
+
 		http
 				.authorizeRequests()
 					.antMatchers("/error", "/static/**", "/webjars/**").permitAll()
