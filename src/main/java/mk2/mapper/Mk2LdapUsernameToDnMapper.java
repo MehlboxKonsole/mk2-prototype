@@ -3,6 +3,7 @@ package mk2.mapper;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.ldap.core.DistinguishedName;
 import org.springframework.security.ldap.LdapUsernameToDnMapper;
+import org.springframework.stereotype.Component;
 
 /**
  * Spring LDAP uses classes implementing LdapUsernameToDnMapper for user name
@@ -10,13 +11,14 @@ import org.springframework.security.ldap.LdapUsernameToDnMapper;
  * deprecated DistinguishedName class. To avoid visual noise, I switch off
  * the warning via @SuppressWarnings
  */
-@SuppressWarnings("deprecations")
+@SuppressWarnings("deprecation")
+@Component
 @ConfigurationProperties(prefix = "mk2.ldap.userDnMapper")
 public class Mk2LdapUsernameToDnMapper implements LdapUsernameToDnMapper {
 
-	private String usernamePattern = "%s@e-mehlbox.eu";
-	private String userAttribute = "cn";
-	private String userBaseDn = "ou=internal,ou=Users";
+	private String usernamePattern;
+	private String userAttribute;
+	private String userBaseDn;
 
 	@Override
 	public DistinguishedName buildDn(String username) {
@@ -26,5 +28,17 @@ public class Mk2LdapUsernameToDnMapper implements LdapUsernameToDnMapper {
 		dn.add(userAttribute, userName);
 
 		return dn;
+	}
+
+	public void setUsernamePattern(String usernamePattern) {
+		this.usernamePattern = usernamePattern;
+	}
+
+	public void setUserAttribute(String userAttribute) {
+		this.userAttribute = userAttribute;
+	}
+
+	public void setUserBaseDn(String userBaseDn) {
+		this.userBaseDn = userBaseDn;
 	}
 }
