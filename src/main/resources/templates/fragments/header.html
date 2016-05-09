@@ -17,8 +17,7 @@
 
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a>
-                    </li>
+                    <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a></li>
                 </ul>
 
                 <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
