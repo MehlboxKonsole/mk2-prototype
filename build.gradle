@@ -3,11 +3,11 @@ buildscript {
 		springBootVersion = '1.3.3.RELEASE'
 		springLdapVersion = '2.0.4.RELEASE'
 
-        mockitoVersion = '1.10.19'
+		mockitoVersion = '1.10.19'
 
-        webBootstrapVersion = '3.3.6'
-        webBootstrapTableVersion = '1.9.1'
-        webJQueryVersion = '2.2.3'
+		webBootstrapVersion = '3.3.6'
+		webBootstrapTableVersion = '1.9.1'
+		webJQueryVersion = '2.2.3'
 	}
 	repositories {
 		mavenCentral()
@@ -24,7 +24,7 @@ apply plugin: 'spring-boot'
 
 jar {
 	baseName = 'mk2-prototype'
-	version = '0.0.1'
+	version = '0.0.2'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -35,27 +35,27 @@ repositories {
 
 
 dependencies {
-    compile(
-            'org.springframework.boot:spring-boot-starter-web',
-            "org.thymeleaf:thymeleaf-spring4",
-            "org.thymeleaf.extras:thymeleaf-extras-springsecurity4",
-            "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
-	        'org.springframework.boot:spring-boot-starter-actuator',
-            "org.springframework.boot:spring-boot-starter-security",
+	compile(
+			'org.springframework.boot:spring-boot-starter-web',
+			"org.thymeleaf:thymeleaf-spring4",
+			"org.thymeleaf.extras:thymeleaf-extras-springsecurity4",
+			"nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
+			'org.springframework.boot:spring-boot-starter-actuator',
+			"org.springframework.boot:spring-boot-starter-security",
 
-            "org.springframework.security:spring-security-ldap",
-            "org.springframework:spring-tx",
-            "org.apache.directory.server:apacheds-server-jndi:1.5.5",
+			"org.springframework.security:spring-security-ldap",
+			"org.springframework:spring-tx",
+			"org.apache.directory.server:apacheds-server-jndi:1.5.5",
 
 
-	        "org.springframework.ldap:spring-ldap-core:${springLdapVersion}",
-            "org.webjars:bootstrap:${webBootstrapVersion}",
-            "org.webjars:bootstrap-table:${webBootstrapTableVersion}",
-            "org.webjars:jquery:${webJQueryVersion}"
-    )
+			"org.springframework.ldap:spring-ldap-core:${springLdapVersion}",
+			"org.webjars:bootstrap:${webBootstrapVersion}",
+			"org.webjars:bootstrap-table:${webBootstrapTableVersion}",
+			"org.webjars:jquery:${webJQueryVersion}"
+	)
 	testCompile(
-            'org.springframework.boot:spring-boot-starter-test',
-            "org.mockito:mockito-core:${mockitoVersion}")
+			'org.springframework.boot:spring-boot-starter-test',
+			"org.mockito:mockito-core:${mockitoVersion}")
 }
 
 
@@ -66,6 +66,11 @@ eclipse {
 	}
 }
 
+bootRun {
+	// support passing -Dsystem.property=value to bootRun task
+	systemProperties = System.properties
+}
+
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+	gradleVersion = '2.3'
 }
