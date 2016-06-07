@@ -5,6 +5,7 @@ import org.springframework.ldap.odm.annotations.Entry;
 import org.springframework.ldap.odm.annotations.Id;
 
 import javax.naming.Name;
+import java.net.IDN;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,6 +34,14 @@ public class Mk2Domain {
 	}
 
 	public String getName() {
+		return name;
+	}
+
+	public String getName(boolean convertIdn) {
+		if (convertIdn) {
+			return IDN.toUnicode(name);
+		}
+
 		return name;
 	}
 

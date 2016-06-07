@@ -12,11 +12,13 @@
 
     <h1 th:text="#{mk2.title.showMyDomains}">My Domains</h1>
 
+    <div th:if="${domains.isEmpty()}" class="bs-callout bs-callout-info" th:text="#{mk2.info.noDomains}"></div>
+
     <div class="container">
 
         <ul id="mk2_account_my_domains">
             <li class="mk2_account_my_domains" th:each="domain : ${domains}">
-                <span th:text="${domain.name}" th:remove="tag"></span>
+                <span th:text="${domain.getName(true)}" th:remove="tag"></span>
             </li>
         </ul>
     </div>
