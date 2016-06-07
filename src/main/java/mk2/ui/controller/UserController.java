@@ -47,7 +47,7 @@ public class UserController {
 	}
 
 	private Map<String, List<String>> sortAddresses(Mk2User user) {
-		HashMap<String, List<String>> addresses = new HashMap();
+		HashMap<String, List<String>> addresses = new HashMap<>();
 		if (user == null || user.getEmailAddresses() == null || user.getEmailAddresses().isEmpty()) {
 			return addresses;
 		}
