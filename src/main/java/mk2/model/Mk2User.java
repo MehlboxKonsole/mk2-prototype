@@ -1,17 +1,39 @@
 package mk2.model;
 
+import org.springframework.ldap.odm.annotations.Attribute;
+import org.springframework.ldap.odm.annotations.Entry;
+import org.springframework.ldap.odm.annotations.Id;
+
+import javax.naming.Name;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+
+@Entry(objectClasses = {"qmailUser", "top"})
 public class Mk2User implements Serializable {
 
+	@Id
+	private Name userDn;
+
 	private String dn;
+
+	@Attribute(name = "uid")
 	private String uid;
+
+	@Attribute(name = "givenName")
 	private String firstName;
+
+	@Attribute(name = "sn")
 	private String lastName;
+
+	@Attribute(name = "displayName")
 	private String displayName;
+
+	@Attribute(name = "mailAlternateAddress")
 	private Set<String> emailAddresses;
+
+	@Attribute(name = "accountStatus")
 	private String accountStatus;
 
 	public Mk2User() {	}
