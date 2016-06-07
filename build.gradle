@@ -24,7 +24,7 @@ apply plugin: 'spring-boot'
 
 jar {
 	baseName = 'mk2-prototype'
-	version = '0.0.3-SNAPSHOT'
+	version = '0.0.3'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -47,8 +47,7 @@ dependencies {
 			"org.springframework:spring-tx",
 			"org.apache.directory.server:apacheds-server-jndi:1.5.5",
 
-//			"org.springframework.ldap:spring-ldap-core:${springLdapVersion}",
-			"org.springframework.ldap:spring-ldap-core:2.1.0.RELEASE",
+			"org.springframework.ldap:spring-ldap-core:${springLdapVersion}",
 
 			"org.webjars:bootstrap:${webBootstrapVersion}",
 			"org.webjars:bootstrap-table:${webBootstrapTableVersion}",
