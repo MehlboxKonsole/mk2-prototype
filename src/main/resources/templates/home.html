@@ -2,6 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       layout:decorator="layout/application">
 <head>
     <meta charset="UTF-8" />
@@ -22,7 +23,7 @@
         <ul>
             <li><a href="/user/showAddresses" th:href="@{/user/showAddresses}" th:text="#{mk2.action.showEmailAddresses}">Show Email Addresses</a></li>
             <li><a href="/user/changePassword" th:href="@{/user/changePassword}" th:text="#{mk2.action.changePassword}">Change Password</a></li>
-            <li><a href="/domain/showMyDomains" th:href="@{/domain/showMyDomains}" th:text="#{mk2.action.showMyDomains}">Show My Domains</a></li>
+            <li sec:authorize="hasRole('ROLE_DOMAIN_OWNER')"><a href="/domain/showMyDomains" th:href="@{/domain/showMyDomains}" th:text="#{mk2.action.showMyDomains}">Show My Domains</a></li>
         </ul>
     </div>
 </div>

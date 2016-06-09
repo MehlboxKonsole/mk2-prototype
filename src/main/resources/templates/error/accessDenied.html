@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/application">
+<head>
+    <meta charset="UTF-8" />
+    <title>MehlboxKonsole - Access Denied</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="bs-callout bs-callout-warning">
+        <h4 th:text="#{mk2.error.accessDenied}">I cannot let you do this, Dave. Sincerly, your HAL9000.</h4>
+    </div>
+
+</div>
+</body>
+</html>

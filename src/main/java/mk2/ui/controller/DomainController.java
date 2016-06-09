@@ -4,6 +4,7 @@ import mk2.model.Mk2Domain;
 import mk2.service.Mk2LdapDomainService;
 import mk2.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ public class DomainController {
 	@Autowired
 	Mk2LdapDomainService domainService;
 
+	@PreAuthorize("hasRole('ROLE_DOMAIN_OWNER')")
 	@RequestMapping(value = "/showMyDomains", method = RequestMethod.GET)
 	public String showMyDomains(Model model) {
 

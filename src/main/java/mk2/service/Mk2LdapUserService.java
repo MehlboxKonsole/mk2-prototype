@@ -1,5 +1,6 @@
 package mk2.service;
 
+import mk2.model.Mk2Domain;
 import mk2.model.Mk2User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.naming.NamingException;
 import javax.naming.ldap.LdapName;
+import java.util.List;
 
 @Service
 public class Mk2LdapUserService {
@@ -20,6 +22,9 @@ public class Mk2LdapUserService {
 
 	@Autowired
 	private LdapTemplate ldapTemplate;
+
+	@Autowired
+	Mk2LdapDomainService domainService;
 
 	@Autowired
 	ContextSource contextSource;
@@ -36,5 +41,10 @@ public class Mk2LdapUserService {
 		Mk2User user = ldapTemplate.findByDn(rdn, Mk2User.class);
 
 		return user;
+	}
+
+	public boolean hasUserDomains(final String fullUserDn) {
+		List<Mk2Domain> domainsForUser = domainService.getDomainsForUser(fullUserDn);
+		return ! domainsForUser.isEmpty();
 	}
 }

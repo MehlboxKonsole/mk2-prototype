@@ -12,8 +12,9 @@ import org.springframework.ldap.core.LdapTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -44,23 +45,16 @@ public class Mk2LdapDomainServiceTest {
 	public void userWithOneDomainReturnsSetWithOneEntry() {
 		String userWithDomain = "example.user.with.one.domain";
 
-
-		Mk2Domain fakeDomain = new Mk2Domain();
-		List<Mk2Domain> intermediateResult = new ArrayList<>();
-		intermediateResult.add(fakeDomain);
-		when(ldapTemplate.find(any(), eq(Mk2Domain.class))).thenReturn(intermediateResult);
-
+		List<Mk2Domain> intermediateResult = generateAndMockIntermediateResult(1);
 		List<Mk2Domain> actualResult = domainService.getDomainsForUser(userWithDomain);
 
-		assertThat(actualResult, hasItem(fakeDomain));
+		assertThat(actualResult, containsInAnyOrder(intermediateResult.toArray()));
 
 	}
 
 	@Test
 	public void nullUsernameReturnEmptyResultAndWritesLogWarning() {
-		String nullUserName = null;
-
-		List<Mk2Domain> actualResult = domainService.getDomainsForUser(nullUserName);
+		List<Mk2Domain> actualResult = domainService.getDomainsForUser(null);
 
 		assertThat(actualResult, is(empty()));
 
@@ -71,17 +65,23 @@ public class Mk2LdapDomainServiceTest {
 	public void userWithMultipleDomainsProducesResultSetWithAllDomains() {
 		String userName = "domain.junie";
 
+		List<Mk2Domain> intermediateResult = generateAndMockIntermediateResult(5);
+		List<Mk2Domain> actualResult = domainService.getDomainsForUser(userName);
+
+		assertThat(actualResult, containsInAnyOrder(intermediateResult.toArray()));
+	}
+
+	private List<Mk2Domain> generateAndMockIntermediateResult(int numberOfDomains) {
 		List<Mk2Domain> intermediateResult = new ArrayList<>(3);
-		Mk2Domain fakeDomain1 = new Mk2Domain();
-		Mk2Domain fakeDomain2 = new Mk2Domain();
-		intermediateResult.add(fakeDomain1);
-		intermediateResult.add(fakeDomain2);
+
+		for (int i = 0; i < numberOfDomains; i++) {
+			Mk2Domain fakeDomain = new Mk2Domain();
+			intermediateResult.add(fakeDomain);
+		}
 
 		when(ldapTemplate.find(any(), eq(Mk2Domain.class))).thenReturn(intermediateResult);
 
-		List<Mk2Domain> actualResult = domainService.getDomainsForUser(userName);
-
-		assertThat(actualResult, hasItems(fakeDomain1, fakeDomain2));
+		return intermediateResult;
 	}
 
 
