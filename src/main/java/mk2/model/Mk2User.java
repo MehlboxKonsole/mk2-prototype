@@ -11,7 +11,7 @@ import java.util.Set;
 
 
 @Entry(objectClasses = {"qmailUser", "top"})
-public class Mk2User implements Serializable {
+public final class Mk2User implements Serializable {
 
 	@Id
 	private Name userDn;

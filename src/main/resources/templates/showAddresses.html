@@ -2,10 +2,14 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       layout:decorator="layout/application">
 <head>
     <meta charset="UTF-8" />
     <title>MehlboxKonsole - Your Email Addresses</title>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css"
+          th:href="@{/webjars/bootstrap-table/1.10.1/dist/bootstrap-table.min.css}" />
 </head>
 <body>
 <div layout:fragment="content">
@@ -14,14 +18,23 @@
 
     <div class="container">
 
-        <ul id="mk2_account_mailaddresses">
-            <li class="mk2_account_mailaddresses_domain_part" th:each="addressesPerDomain: ${addresses}">
-                <span th:text="${addressesPerDomain.key}" th:remove="tag"></span>
-                <ul>
-                    <li th:each="address, iterStat: ${addressesPerDomain.value}" th:text="${address}" th:class="${iterStat.odd}? 'odd' : 'even'"></li>
-                </ul>
-            </li>
-        </ul>
+        <div style="text-align: right; margin-bottom: 5px;" sec:authorize="hasRole('ROLE_DOMAIN_OWNER')">
+            <a href="/user/emailAddress/add" th:href="@{/user/emailAddress/add}"><i class="glyphicon glyphicon-plus"></i><span th:text="#{mk2.action.addEmailAddress}" th:remove="tag">Add</span></a>
+        </div>
+        <table data-toggle="table">
+            <thead>
+            <tr>
+                <th th:text="#{mk2.user.table.header.email.address}">Address</th>
+                <th th:text="#{mk2.user.table.header.email.actions}">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="address: ${addresses}">
+                    <td th:text="${address}"></td>
+                    <td><a class="like" href="#" title="Delete"><i class="glyphicon glyphicon-trash"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>
