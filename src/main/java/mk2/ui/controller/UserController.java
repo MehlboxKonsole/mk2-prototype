@@ -1,7 +1,10 @@
 package mk2.ui.controller;
 
+import mk2.exception.DomainNotAvailableException;
+import mk2.exception.EmailAddressAlreadyInUseException;
 import mk2.model.Mk2Domain;
 import mk2.model.Mk2User;
+import mk2.service.EmailAddressService;
 import mk2.service.Mk2LdapDomainService;
 import mk2.service.Mk2LdapUserService;
 import mk2.ui.business.ChangePassword;
@@ -16,12 +19,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -34,11 +38,18 @@ public class UserController {
 	Mk2LdapDomainService domainService;
 
 	@Autowired
+	EmailAddressService emailAddressService;
+
+	@Autowired
 	UserUtil userUtil;
 
 	@Autowired
 	@Qualifier("PasswordValidator")
 	private Validator passwordValidator;
+
+	@Autowired
+	@Qualifier("EmailValidator")
+	private Validator emailValidator;
 
 	@Autowired
 	private ChangePassword passwordLogic;
@@ -60,8 +71,8 @@ public class UserController {
 
 	/**
 	 * Warning: We use Spring's flash attributes here. So once
-	 *          this application starts to run in a cluster, the
-	 *          sessions must be kept in sync (e.g. using Redis)
+	 * this application starts to run in a cluster, the
+	 * sessions must be kept in sync (e.g. using Redis)
 	 */
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public String changePassword(@Valid Password password, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
@@ -85,10 +96,42 @@ public class UserController {
 		EmailAddress address = new EmailAddress();
 		model.addAttribute("address", address);
 
+		prepareDomainsForEmailAddressForm(model);
+
+		return "addEmailAddress";
+	}
+
+	private void prepareDomainsForEmailAddressForm(Model model) {
 		String dn = userUtil.getCurrentUsersDn();
 		List<Mk2Domain> domainsForUser = domainService.getDomainsForUser(dn);
 		model.addAttribute("ownedDomains", domainsForUser);
+	}
 
-		return "addEmailAddress";
+	@PreAuthorize("hasRole('ROLE_DOMAIN_OWNER')")
+	@RequestMapping(value = "/emailAddress/add", method = RequestMethod.POST)
+	public String addEmailAddress(@Valid @ModelAttribute("address") EmailAddress address, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws DomainNotAvailableException, EmailAddressAlreadyInUseException {
+		emailValidator.validate(address, bindingResult);
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("address", address);
+
+			prepareDomainsForEmailAddressForm(model);
+
+			return "addEmailAddress";
+		}
+
+		emailAddressService.addAddress(userUtil.getCurrentUsersDn(), address.toString());
+
+		flagMultiAssignment(address, redirectAttributes);
+
+		redirectAttributes.addFlashAttribute("message", "Address added.");
+
+		return "redirect:/";
+	}
+
+	private void flagMultiAssignment(EmailAddress address, RedirectAttributes redirectAttributes) {
+		if (emailAddressService.isAddressAlreadyAssigned(address.toString(), userUtil.getCurrentUser().getUid())) {
+			redirectAttributes.addFlashAttribute("warning", "Email address is assigned to multiple users.");
+		}
 	}
 }

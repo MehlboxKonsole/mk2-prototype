@@ -13,29 +13,28 @@
     <h1 th:text="#{mk2.title.addEmailAddress}">New E-mail Address</h1>
 
     <div class="container">
+        <form th:action="@{/user/emailAddress/add}" action="/user/emailAddress/add" method="POST" th:object="${address}">
 
-        <form th:action="@{/user/emailAddress}" action="/user/emailAddress" method="POST" th:object="${address}">
-            <div class="form-group col-xs-12" th:classappend="${#fields.hasErrors('localPart')?'has-error':''}">
-                <label for="mk2_email_local_part" class="control-label col-xs-2" th:text="#{mk2.form.addEmailAddress.localPart}" th:value="*{localPart}">Local Part: </label>
-                <div class="col-xs-4">
-                    <input id="mk2_email_local_part" name="localPart" type="text" class="form-control"/>
-                    <span th:if="${#fields.hasErrors('localPart')}" th:errors="*{localPart}">Local Part Error</span>
-                </div>
+            <div th:if="${#fields.hasErrors('*')}" class="bs-callout bs-callout-danger">
+                <h4 th:text="#{mk2.error.email.header}">Error</h4>
+                <ul>
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+                </ul>
             </div>
 
-            <div class="form-group col-xs-12" th:classappend="${#fields.hasErrors('domain')?'has-error':''}">
-                <label for="mk2_email_domain" class="control-label col-xs-2" th:text="#{mk2.form.addEmailAddress.domain}">Domain: </label>
-                <div class="col-xs-4 input-group">
+            <div class="form-group" th:classappend="${#fields.hasErrors('*')?'has-error':''}">
+                <label class="control-label col-xs-2" th:text="#{mk2.form.addEmailAddress.newEmailAddress}">New address: </label>
+                <div class="col-xs-8 input-group">
+                    <input id="mk2_email_local_part" name="localPart" type="text" class="form-control" th:value="*{localPart}" />
                     <span class="input-group-addon">@</span>
                     <select id="mk2_email_domain" name="domain" class="form-control">
                         <option th:each="domain: ${ownedDomains}" th:value="${domain.name}" th:text="${domain.name}" th:selected="${domain.name.equals(address.domain)}">domain</option>
                     </select>
-                    <span th:if="${#fields.hasErrors('domain')}" th:errors="*{domain}">Domain Error</span>
                 </div>
-            </div>
 
-            <div class="button-group">
-                <button type="submit" id="mk2_changePassword_submit" name="submit" value="Change">Change</button>
+                <div class="button-group">
+                    <button type="submit" id="mk2_addEmailAddress_submit" name="submit" value="Create">Create</button>
+                </div>
             </div>
         </form>
 

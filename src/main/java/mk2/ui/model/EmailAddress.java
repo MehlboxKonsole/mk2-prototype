@@ -5,7 +5,8 @@ public class EmailAddress {
 	private String localPart;
 	private String domain;
 
-	public EmailAddress() {	}
+	public EmailAddress() {
+	}
 
 	public EmailAddress(String localPart, String domain) {
 		this.localPart = localPart;
@@ -50,9 +51,6 @@ public class EmailAddress {
 
 	@Override
 	public String toString() {
-		return "EmailAddress{" +
-				"localPart='" + localPart + '\'' +
-				", domain='" + domain + '\'' +
-				'}';
+		return localPart + "@" + domain;
 	}
 }
