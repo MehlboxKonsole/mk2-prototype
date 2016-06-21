@@ -2,6 +2,7 @@ package mk2.service;
 
 import mk2.exception.DomainNotAvailableException;
 import mk2.exception.EmailAddressAlreadyInUseException;
+import mk2.exception.EmailAddressNotAssignedException;
 import mk2.model.Mk2Domain;
 import mk2.model.Mk2User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,5 +93,19 @@ public class EmailAddressService {
 				.collect(Collectors.toSet());
 
 		return remainingUsers.size() > 0;
+	}
+
+	public Mk2User removeEmailAddressFromUser(String email, String userFullDn) throws EmailAddressNotAssignedException {
+		Mk2User user = userService.findByDn(userFullDn);
+
+		if (!user.getEmailAddresses().contains(email)) {
+			throw new EmailAddressNotAssignedException();
+		}
+
+		user.removeEmailAddress(email);
+
+		userService.updateUser(user);
+
+		return user;
 	}
 }

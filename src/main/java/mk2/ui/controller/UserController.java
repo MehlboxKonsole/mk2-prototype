@@ -2,15 +2,19 @@ package mk2.ui.controller;
 
 import mk2.exception.DomainNotAvailableException;
 import mk2.exception.EmailAddressAlreadyInUseException;
+import mk2.exception.EmailAddressNotAssignedException;
 import mk2.model.Mk2Domain;
 import mk2.model.Mk2User;
 import mk2.service.EmailAddressService;
 import mk2.service.Mk2LdapDomainService;
 import mk2.service.Mk2LdapUserService;
 import mk2.ui.business.ChangePassword;
+import mk2.ui.business.EmailAddressLogic;
 import mk2.ui.model.EmailAddress;
 import mk2.ui.model.Password;
 import mk2.util.UserUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -20,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,6 +35,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	Mk2LdapUserService userService;
@@ -53,6 +60,9 @@ public class UserController {
 
 	@Autowired
 	private ChangePassword passwordLogic;
+
+	@Autowired
+	private EmailAddressLogic emailAddressLogic;
 
 	@RequestMapping(value = "/showAddresses", method = RequestMethod.GET)
 	public String showAddresses(Model model) {
@@ -127,6 +137,26 @@ public class UserController {
 		redirectAttributes.addFlashAttribute("message", "Address added.");
 
 		return "redirect:/";
+	}
+
+	/**
+	 * FIXME: Technical debt ahead! This should be a DELETE, but HTML is a bit limited.
+	 *
+	 */
+	@PreAuthorize("hasRole('ROLE_DOMAIN_OWNER')")
+	@RequestMapping(value = "/emailAddress/delete", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
+	public String deleteEmailAddress(@ModelAttribute("address") String email, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws EmailAddressNotAssignedException {
+		log.debug("Will delete e-mail address '" + email + "'");
+
+		try {
+			emailAddressLogic.delete(email);
+
+			redirectAttributes.addFlashAttribute("message", "Address removed");
+		} catch (EmailAddressNotAssignedException ex) {
+			redirectAttributes.addFlashAttribute("error", "You can only remove emails assigned to your account.");
+		}
+
+		return "redirect:/user/showAddresses";
 	}
 
 	private void flagMultiAssignment(EmailAddress address, RedirectAttributes redirectAttributes) {
