@@ -5,18 +5,17 @@ import org.springframework.ldap.odm.annotations.Entry;
 import org.springframework.ldap.odm.annotations.Id;
 
 import javax.naming.Name;
+import javax.naming.ldap.LdapName;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 
 @Entry(objectClasses = {"qmailUser", "top"})
-public class Mk2User implements Serializable {
+public final class Mk2User implements Serializable {
 
 	@Id
 	private Name userDn;
-
-	private String dn;
 
 	@Attribute(name = "uid")
 	private String uid;
@@ -36,10 +35,12 @@ public class Mk2User implements Serializable {
 	@Attribute(name = "accountStatus")
 	private String accountStatus;
 
-	public Mk2User() {	}
+	public Mk2User() {
+		this.emailAddresses = new HashSet<>();
+	}
 
-	public Mk2User(String dn, String uid, String firstName, String lastName, String displayName, Set<String> emailAddresses, String accountStatus) {
-		this.dn = dn;
+	public Mk2User(LdapName dn, String uid, String firstName, String lastName, String displayName, Set<String> emailAddresses, String accountStatus) {
+		this.userDn = dn;
 		this.uid = uid;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -49,11 +50,11 @@ public class Mk2User implements Serializable {
 	}
 
 	public String getDn() {
-		return dn;
+		return userDn.toString();
 	}
 
-	public void setDn(String dn) {
-		this.dn = dn;
+	public void setDn(LdapName dn) {
+		this.userDn = dn;
 	}
 
 	public String getUid() {
@@ -116,5 +117,54 @@ public class Mk2User implements Serializable {
 
 	public void setAccountStatus(String accountStatus) {
 		this.accountStatus = accountStatus;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Mk2User user = (Mk2User) o;
+
+		if (userDn != null ? !userDn.equals(user.userDn) : user.userDn != null) return false;
+		if (getDn() != null ? !getDn().equals(user.getDn()) : user.getDn() != null) return false;
+		if (getUid() != null ? !getUid().equals(user.getUid()) : user.getUid() != null) return false;
+		if (getFirstName() != null ? !getFirstName().equals(user.getFirstName()) : user.getFirstName() != null)
+			return false;
+		if (getLastName() != null ? !getLastName().equals(user.getLastName()) : user.getLastName() != null)
+			return false;
+		if (getDisplayName() != null ? !getDisplayName().equals(user.getDisplayName()) : user.getDisplayName() != null)
+			return false;
+		if (getEmailAddresses() != null ? !getEmailAddresses().equals(user.getEmailAddresses()) : user.getEmailAddresses() != null)
+			return false;
+		return getAccountStatus() != null ? getAccountStatus().equals(user.getAccountStatus()) : user.getAccountStatus() == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = userDn != null ? userDn.hashCode() : 0;
+		result = 31 * result + (getDn() != null ? getDn().hashCode() : 0);
+		result = 31 * result + (getUid() != null ? getUid().hashCode() : 0);
+		result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
+		result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);
+		result = 31 * result + (getDisplayName() != null ? getDisplayName().hashCode() : 0);
+		result = 31 * result + (getEmailAddresses() != null ? getEmailAddresses().hashCode() : 0);
+		result = 31 * result + (getAccountStatus() != null ? getAccountStatus().hashCode() : 0);
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Mk2User{" +
+				"userDn=" + userDn +
+				", dn='" + userDn + '\'' +
+				", uid='" + uid + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", displayName='" + displayName + '\'' +
+				", emailAddresses=" + emailAddresses +
+				", accountStatus='" + accountStatus + '\'' +
+				'}';
 	}
 }

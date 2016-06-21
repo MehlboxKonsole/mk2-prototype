@@ -47,4 +47,8 @@ public class Mk2LdapUserService {
 		List<Mk2Domain> domainsForUser = domainService.getDomainsForUser(fullUserDn);
 		return ! domainsForUser.isEmpty();
 	}
+
+	public void updateUser(final Mk2User user) {
+		ldapTemplate.update(user);
+	}
 }
