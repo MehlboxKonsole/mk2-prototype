@@ -50,7 +50,7 @@ public final class Mk2User implements Serializable {
 	}
 
 	public String getDn() {
-		return userDn.toString();
+		return (userDn != null ? userDn.toString() : null);
 	}
 
 	public void setDn(LdapName dn) {
