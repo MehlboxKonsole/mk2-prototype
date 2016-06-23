@@ -24,7 +24,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -141,7 +140,6 @@ public class UserController {
 
 	/**
 	 * FIXME: Technical debt ahead! This should be a DELETE, but HTML is a bit limited.
-	 *
 	 */
 	@PreAuthorize("hasRole('ROLE_DOMAIN_OWNER')")
 	@RequestMapping(value = "/emailAddress/delete", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
