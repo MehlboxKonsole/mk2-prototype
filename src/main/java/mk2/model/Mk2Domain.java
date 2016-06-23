@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entry(objectClasses = {"dNSDomain", "top"})
-public class Mk2Domain {
+public final class Mk2Domain {
 
 	@Id
 	Name dn;
