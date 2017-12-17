@@ -57,9 +57,9 @@
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
-            var u = [[;@{${@environment.getProperty('mk2.piwik.url')}}]]
-            _paq.push(['setTrackerUrl', [[;@{${@environment.getProperty('mk2.piwik.full_url')}}]]])
-            _paq.push(['setSiteId', [[;@{${@environment.getProperty('mk2.piwik.id')}}]]])
+            var u = [[@{${@environment.getProperty('mk2.piwik.url')}}]];
+            _paq.push(['setTrackerUrl', [[@{${@environment.getProperty('mk2.piwik.full_url')}}]]]);
+            _paq.push(['setSiteId', [[@{${@environment.getProperty('mk2.piwik.id')}}]]]);
             var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
             g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
         })();
