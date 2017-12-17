@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" crossorigin="anonymous"
-          th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" crossorigin="anonymous"
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          crossorigin="anonymous"
           th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css}"/>
-    <link rel="stylesheet" href="../../static/css/mk2-main.css" th:href="@{/css/mk2-main.css}" />
+    <link rel="stylesheet" href="../../static/css/mk2-main.css" th:href="@{/css/mk2-main.css}"/>
 
 
     <!--/*  Each token will be replaced by their respective titles in the resulting page. */-->
@@ -45,6 +47,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"
             th:src="@{/webjars/bootstrap-table/1.10.1/dist/bootstrap-table.min.js}"></script>
 
+    <!-- @formatter:off -->
     <!-- Piwik -->
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
@@ -53,29 +56,18 @@
         _paq.push(["setDomains", ["e-mehlbox.eu"]]);
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
-        (function () {
-            var u = [[;@{${@environment.getProperty('mk2.piwik.url')}
-            }
-        ]]
-            _paq.push(['setTrackerUrl', [[;@{${@environment.getProperty('mk2.piwik.full_url')}
-            }
-        ]]])
-            _paq.push(['setSiteId', [[;@{${@environment.getProperty('mk2.piwik.id')}
-            }
-        ]]])
-            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-            g.type = 'text/javascript';
-            g.async = true;
-            g.defer = true;
-            g.src = u + 'piwik.js';
-            s.parentNode.insertBefore(g, s);
+        (function() {
+            var u = [[;@{${@environment.getProperty('mk2.piwik.url')}}]]
+            _paq.push(['setTrackerUrl', [[;@{${@environment.getProperty('mk2.piwik.full_url')}}]]])
+            _paq.push(['setSiteId', [[;@{${@environment.getProperty('mk2.piwik.id')}}]]])
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
         })();
         /*]]>*/
     </script>
-    <noscript><p><img
-            th:src="@{${@environment.getProperty('mk2.piwik.full_url')}(idsite=@{${@environment.getProperty('mk2.piwik.id')}}, rec=1)}"
-            style="border:0;" alt=""/></p></noscript>
+    <noscript><p><img th:src="@{${@environment.getProperty('mk2.piwik.full_url')}(idsite=@{${@environment.getProperty('mk2.piwik.id')}}, rec=1)}" style="border:0;" alt="" /></p></noscript>
     <!-- End Piwik Code -->
+    <!-- @formatter:on -->
 </div>
 <header th:replace="fragments/header :: header"></header>
 </body>
