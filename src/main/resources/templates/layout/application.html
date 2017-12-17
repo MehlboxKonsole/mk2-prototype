@@ -18,7 +18,6 @@
     <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">Mehlbox Konsole</title>
 </head>
 <body>
-<header th:replace="fragments/header :: header"></header>
 <div class="container">
     <div layout:fragment="content">
         <!-- ============================================================================ -->
@@ -42,10 +41,42 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
             th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
 
-<!-- suboptimal here, but jquery has to be loaded before we can load this script... -->
+    <!-- suboptimal here, but jquery has to be loaded before we can load this script... -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"
             th:src="@{/webjars/bootstrap-table/1.10.1/dist/bootstrap-table.min.js}"></script>
 
+    <!-- Piwik -->
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        var _paq = _paq || [];
+        // FIXME should be dynamic
+        _paq.push(["setDomains", ["e-mehlbox.eu"]]);
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+            var u = [[;@{${@environment.getProperty('mk2.piwik.url')}
+            }
+        ]]
+            _paq.push(['setTrackerUrl', [[;@{${@environment.getProperty('mk2.piwik.full_url')}
+            }
+        ]]])
+            _paq.push(['setSiteId', [[;@{${@environment.getProperty('mk2.piwik.id')}
+            }
+        ]]])
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+            g.type = 'text/javascript';
+            g.async = true;
+            g.defer = true;
+            g.src = u + 'piwik.js';
+            s.parentNode.insertBefore(g, s);
+        })();
+        /*]]>*/
+    </script>
+    <noscript><p><img
+            th:src="@{${@environment.getProperty('mk2.piwik.full_url')}(idsite=@{${@environment.getProperty('mk2.piwik.id')}}, rec=1)}"
+            style="border:0;" alt=""/></p></noscript>
+    <!-- End Piwik Code -->
 </div>
+<header th:replace="fragments/header :: header"></header>
 </body>
 </html>
