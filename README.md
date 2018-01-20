@@ -1,5 +1,7 @@
 # MehlboxKonsole 2 - Prototype
 
+[![Known Vulnerabilities](https://snyk.io/test/github/mehlboxkonsole/mk2-prototype/badge.svg)](https://snyk.io/test/github/mehlboxkonsole/mk2-prototype)
+
 This prototype is to give us a spike and will provide the following functions:
 
 * Basic layout

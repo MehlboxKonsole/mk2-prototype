@@ -47,7 +47,7 @@ dependencies {
 
 			"org.springframework.security:spring-security-ldap",
 			"org.springframework:spring-tx",
-			"org.apache.directory.server:apacheds-server-jndi:1.5.5",
+			"org.apache.directory.server:apacheds-server-jndi:1.5.7",
 
 			"org.springframework.ldap:spring-ldap-core:${springLdapVersion}",
 
