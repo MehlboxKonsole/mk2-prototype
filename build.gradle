@@ -17,7 +17,7 @@
 
 buildscript {
 	ext {
-		springBootVersion = '1.5.9.RELEASE'
+		springBootVersion = '2.0.4.RELEASE'
 		springLdapVersion = '2.3.2.RELEASE'
 
 		mockitoVersion = '1.10.19'
@@ -30,16 +30,15 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
 
 plugins {
-	id 'org.springframework.boot' version '1.5.9.RELEASE'
+	id 'java'
+	id "org.springframework.boot" version "2.0.4.RELEASE"
+	id 'io.spring.dependency-management' version "1.0.6.RELEASE"
 }
-
-apply plugin: 'java'
-
 
 jar {
 	baseName = 'mk2-prototype'
@@ -56,25 +55,41 @@ repositories {
 dependencies {
 	compile(
 			'org.springframework.boot:spring-boot-starter-web',
-			"org.thymeleaf:thymeleaf-spring4",
-			"org.thymeleaf.extras:thymeleaf-extras-springsecurity4",
-			"nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
 			'org.springframework.boot:spring-boot-starter-actuator',
 			"org.springframework.boot:spring-boot-starter-security",
-
+			"org.springframework.boot:spring-boot-starter-thymeleaf",
 			"org.springframework.security:spring-security-ldap",
+			"org.springframework.ldap:spring-ldap-core",
+
+//			"org.thymeleaf:thymeleaf-spring4",
+			"org.thymeleaf.extras:thymeleaf-extras-springsecurity4",
+			"nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
+
+
 			"org.springframework:spring-tx",
 			"org.apache.directory.server:apacheds-server-jndi:1.5.7",
 
-			"org.springframework.ldap:spring-ldap-core:${springLdapVersion}",
 
 			"org.webjars:bootstrap:${webBootstrapVersion}",
 			"org.webjars.bower:bootstrap-table:${webBootstrapTableVersion}",
-			"org.webjars:jquery:${webJQueryVersion}"
+			"org.webjars:jquery:${webJQueryVersion}",
+
+			'javax.inject:javax.inject:1',
 	)
+
+	annotationProcessor(
+			"org.springframework.boot:spring-boot-configuration-processor"
+	)
+
+	runtime(
+			"org.springframework.boot:spring-boot-properties-migrator",
+			'org.springframework.boot:spring-boot-devtools',
+	)
+
 	testCompile(
-			"org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
-			"org.mockito:mockito-core:${mockitoVersion}")
+			"org.springframework.boot:spring-boot-starter-test",
+//			"org.mockito:mockito-core:${mockitoVersion}"
+	)
 }
 
 bootRun {
