@@ -34,12 +34,12 @@ And running the application is simply: `./gradlew bootRun` and open your browser
 Keep in mind that you need a running LDAP server to be able to login. By default, the application is using
 _ldap://localhost:389_ as LDAP connection URL. If your LDAP is listening on another address, use the following command:
 ```
-JAVA_OPTS="-Dmk2.ldap.contextSource.url=ldap://<your-ldap-address>:<your-ldap-port>" ./gradlew bootRun
+JAVA_OPTS="-Dmk2.ldap.context-source.url=ldap://<your-ldap-address>:<your-ldap-port>" ./gradlew bootRun
 ```
 
 Alternatively you can export _JAVA_OPTS_ so you do not have repeat it every time:
 ```
-export JAVA_OPTS="-Dmk2.ldap.contextSource.url=ldap://<your-ldap-address>:<your-ldap-port>"
+export JAVA_OPTS="-Dmk2.ldap.context-source.url=ldap://<your-ldap-address>:<your-ldap-port>"
 ```
 
 To populate the LDAP, the easiest is to export from the main directory and import it into your local environment. Or ask

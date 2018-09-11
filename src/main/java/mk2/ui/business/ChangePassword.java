@@ -15,23 +15,6 @@
  *     along with MehlboxKonsole2.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*
- * This file is part of MehlboxKonsole2.
- *
- *     MehlboxKonsole2 is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU Affero General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     Foobar is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU Affero General Public License for more details.
- *
- *     You should have received a copy of the GNU Affero General Public License
- *     along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package mk2.ui.business;
 
 import mk2.ui.model.Password;
@@ -39,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.encoding.LdapShaPasswordEncoder;
+import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsManager;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
@@ -56,7 +39,7 @@ public class ChangePassword {
 		boolean changeSuccessful = false;
 
 		if (!bindingResult.hasErrors()) {
-			changeSuccessful= changeInDirectory(passwordData);
+			changeSuccessful = changeInDirectory(passwordData);
 		}
 
 
@@ -68,7 +51,7 @@ public class ChangePassword {
 
 		try {
 			LdapShaPasswordEncoder passwordEncoder = new LdapShaPasswordEncoder();
-			String encodedPassword = passwordEncoder.encodePassword(passwordData.getNewPassword(), null);
+			String encodedPassword = passwordEncoder.encode(passwordData.getNewPassword());
 
 			ldapUserDetailsManager.changePassword(passwordData.getOldPassword(), encodedPassword);
 

@@ -15,23 +15,6 @@
  *     along with MehlboxKonsole2.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*
- * This file is part of MehlboxKonsole2.
- *
- *     MehlboxKonsole2 is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU Affero General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     Foobar is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU Affero General Public License for more details.
- *
- *     You should have received a copy of the GNU Affero General Public License
- *     along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package mk2.service;
 
 import mk2.exception.DomainNotAvailableException;
@@ -45,7 +28,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.support.LdapNameBuilder;
 
@@ -64,18 +47,16 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class EmailAddressServiceTest {
 
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
 	@Mock
 	private Mk2LdapUserService userService;
-
 	@Mock
 	private Mk2LdapDomainService domainService;
-
 	@Mock
 	private LdapTemplate ldapTemplate;
-
 	@InjectMocks
 	private EmailAddressService emailAddressService;
-
 	private String userDn = LdapNameBuilder.newInstance()
 			.add("dc", "eu")
 			.add("dc", "e-mehlbox")
@@ -84,10 +65,6 @@ public class EmailAddressServiceTest {
 			.add("cn", "test.user")
 			.build()
 			.toString();
-
-
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
 
 	@Test
 	public void newAddressForNotOwnedDomainShouldThrowException() throws DomainNotAvailableException, EmailAddressAlreadyInUseException {
@@ -114,10 +91,10 @@ public class EmailAddressServiceTest {
 
 		Mk2Domain domain = new Mk2Domain();
 		domain.setName(domainName);
-		List<Mk2Domain> domainList = new ArrayList<>();
-		domainList.add(domain);
+//		List<Mk2Domain> domainList = new ArrayList<>();
+//		domainList.add(domain);
 
-		when(domainService.getDomainsForUser(userDn)).thenReturn(domainList);
+//		when(domainService.getDomainsForUser(userDn)).thenReturn(domainList);
 		when(userService.findByDn(userDn)).thenReturn(user);
 
 		expectedException.expect(EmailAddressAlreadyInUseException.class);
