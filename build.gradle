@@ -61,14 +61,10 @@ dependencies {
 			"org.springframework.security:spring-security-ldap",
 			"org.springframework.ldap:spring-ldap-core",
 
-//			"org.thymeleaf:thymeleaf-spring4",
 			"org.thymeleaf.extras:thymeleaf-extras-springsecurity4",
 			"nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
 
-
 			"org.springframework:spring-tx",
-			"org.apache.directory.server:apacheds-server-jndi:1.5.7",
-
 
 			"org.webjars:bootstrap:${webBootstrapVersion}",
 			"org.webjars.bower:bootstrap-table:${webBootstrapTableVersion}",

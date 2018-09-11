@@ -30,17 +30,24 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.ldap.userdetails.LdapAuthoritiesPopulator;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
+import javax.inject.Inject;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-	@Autowired
+	final
 	LdapContextSource contextSource;
 
 	private static final String LDAP_GROUP_SEARCH_BASE = "ou=Groups";
 	private static final String LDAP_GROUP_SEARCH_FILTER = "uniqueMember={0}";
+
+	@Inject
+	public WebSecurityConfig(LdapContextSource contextSource) {
+		this.contextSource = contextSource;
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -70,7 +77,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth
 				.ldapAuthentication()
 				.ldapAuthoritiesPopulator(ldapAuthoritiesPopulator())
-//					.userDnPatterns("cn={0}@e-mehlbox.eu,ou=internal,ou=Users,dc=e-mehlbox,dc=eu")
 				.userDnPatterns("cn={0}@e-mehlbox.eu,ou=internal,ou=Users")
 				.groupSearchBase(LDAP_GROUP_SEARCH_BASE)
 				.groupSearchFilter(LDAP_GROUP_SEARCH_FILTER)
