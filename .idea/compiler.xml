@@ -6,6 +6,8 @@
       <module name="mk2-prototype.test" target="1.8" />
       <module name="mk2-prototype_main" target="1.8" />
       <module name="mk2-prototype_test" target="1.8" />
+      <module name="private-mk2-prototype_main" target="1.8" />
+      <module name="private-mk2-prototype_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
