@@ -16,14 +16,15 @@
   -->
 
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  xmlns:th="http://www.thymeleaf.org"
-	  layout:decorate="~{ layout/application }">
-<head>
-	<title>Mehlbox Konsole</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head">
+	<title>Mehlbox Konsole - Log In</title>
 </head>
 <body>
-<div layout:fragment="content">
+
+<header th:replace="fragments/header :: header">HEADER GOES HERE</header>
+
+<div th:fragment="content">
 
 	<h1>Login</h1>
 
@@ -58,5 +59,9 @@
 		</form>
 	</div>
 </div>
+
+<footer th:replace="fragments/footer :: footer">FOOTER GOES HERE</footer>
+
+<section th:replace="fragments/footer :: scripts">SCRIPTS GO HERE</section>
 </body>
 </html>

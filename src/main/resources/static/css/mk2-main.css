@@ -15,7 +15,7 @@
  *     along with MehlboxKonsole2.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-body { padding-top: 70px; }
+/*body { padding-top: 70px; }*/
 
 #mk2_account_mailaddresses, #mk2_account_mailaddresses ul {
     list-style-type: none;
