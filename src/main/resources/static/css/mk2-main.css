@@ -17,6 +17,10 @@
 
 /*body { padding-top: 70px; }*/
 
+header {
+    margin-bottom: 2rem;
+}
+
 #mk2_account_mailaddresses, #mk2_account_mailaddresses ul {
     list-style-type: none;
     margin: 0;

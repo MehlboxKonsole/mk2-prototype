@@ -37,34 +37,29 @@
 <body>
 <header th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="navbar-header">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="/">Mehlbox Konsole</a>
-        </div>
+        <a class="navbar-brand" href="/">Mehlbox Konsole</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li sec:authorize="isAnonymous()" class="nav-item active"><a th:href="@{/login}"
-                                                                             class="nav-link">Login</a></li>
-            </ul>
+                <li sec:authorize="isAnonymous()" class="nav-item active">
+                    <a th:href="@{/login}" class="nav-link">Login</a>
+                </li>
 
-            <ul sec:authorize="isAuthenticated()" class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
-                            sec:authentication="name">Testus Test Foo</span> <span
-                            class="caret"></span></a>
-                    <div class="dropdown-menu">
-                        <form th:action="@{/logout}" method="post">
-                            <input type="submit" class="btn btn-link" value="Sign Out"/>
+                <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span sec:authentication="name">Testus Test Foo</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <form th:action="@{/logout}" method="post" class="form-inline">
+                            <input type="submit" class="dropdown-item btn btn-link" value="Sign Out"/>
                         </form>
                     </div>
 
-
-                    </ul>
                 </li>
             </ul>
         </div>
