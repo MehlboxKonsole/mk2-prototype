@@ -57,12 +57,13 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
                             sec:authentication="name">Testus Test Foo</span> <span
                             class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <form th:action="@{/logout}" method="post">
-                                <input type="submit" class="btn btn-link" value="Sign Out"/>
-                            </form>
-                        </li>
+                    <div class="dropdown-menu">
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" class="btn btn-link" value="Sign Out"/>
+                        </form>
+                    </div>
+
+
                     </ul>
                 </li>
             </ul>
