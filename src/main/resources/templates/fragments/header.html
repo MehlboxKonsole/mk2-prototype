@@ -36,7 +36,7 @@
 
 <body>
 <header th:fragment="header">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">Mehlbox Konsole</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,9 +48,10 @@
                 <li sec:authorize="isAnonymous()" class="nav-item active">
                     <a th:href="@{/login}" class="nav-link">Login</a>
                 </li>
+            </ul>
 
-                <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                <div sec:authorize="isAuthenticated()" class="dropdown">
+                    <a class="nav-link dropdown-toggle text-light bg-dark" href="#" id="navbarDropdownMenuLink" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span sec:authentication="name">Testus Test Foo</span>
                     </a>
@@ -60,8 +61,7 @@
                         </form>
                     </div>
 
-                </li>
-            </ul>
+                </div>
         </div>
     </nav>
 </header>
