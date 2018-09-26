@@ -37,6 +37,22 @@ plugins {
 	id 'java'
 	id "org.springframework.boot" version "2.0.5.RELEASE"
 	id 'io.spring.dependency-management' version "1.0.6.RELEASE"
+	id 'com.moowork.node' version '1.2.0'
+}
+
+node {
+	version = '9.4.0'
+	npmVersion = '5.6.0'
+	download = true
+
+	// Set the work directory for unpacking node
+	workDir = file("${project.buildDir}/nodejs")
+
+	// Set the work directory for NPM
+	npmWorkDir = file("${project.buildDir}/npm")
+
+	// Set the work directory where node_modules should be located
+	nodeModulesDir = file("${project.projectDir}")
 }
 
 jar {
