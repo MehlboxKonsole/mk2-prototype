@@ -66,6 +66,23 @@ repositories {
 	mavenCentral()
 }
 
+task runSass(type: NpmTask, dependsOn: compileJava) {
+	args = ['run', 'sass']
+}
+
+clean.doLast {
+	file('src/main/resources/static/generated').deleteDir()
+}
+
+compileJava.finalizedBy runSass
+
+sourceSets {
+	main {
+		resources {
+			exclude "**/sass/**"
+		}
+	}
+}
 
 dependencies {
 	compile(
