@@ -103,8 +103,4 @@ dependencies {
 	)
 }
 
-bootRun {
-	// support passing -Dsystem.property=value to bootRun task
-	systemProperties = System.properties
-}
 
