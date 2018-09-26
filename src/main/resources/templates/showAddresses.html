@@ -22,9 +22,6 @@
 
 <head th:insert="fragments/header :: head">
     <title>Mehlbox Konsole - Log In</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css"
-          th:href="@{/webjars/bootstrap-table/1.10.1/dist/bootstrap-table.min.css}"/>
-
 </head>
 
 
@@ -50,11 +47,12 @@
             <a href="/user/emailAddress/add" th:href="@{/user/emailAddress/add}"><i
                     class="fa fa-plus"></i><span th:text="#{mk2.action.addEmailAddress}" th:remove="tag">Add</span></a>
         </div>
-        <table data-toggle="table">
-            <thead>
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
             <tr>
-                <th th:text="#{mk2.user.table.header.email.address}">Address</th>
-                <th th:text="#{mk2.user.table.header.email.actions}">Actions</th>
+                <th th:text="#{mk2.user.table.header.email.address}" scope="col">Address</th>
+                <th th:text="#{mk2.user.table.header.email.actions}" scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
