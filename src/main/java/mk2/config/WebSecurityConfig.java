@@ -15,6 +15,23 @@
  *     along with MehlboxKonsole2.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*
+ * This file is part of MehlboxKonsole2.
+ *
+ *     MehlboxKonsole2 is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU Affero General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     MehlboxKonsole2 is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU Affero General Public License for more details.
+ *
+ *     You should have received a copy of the GNU Affero General Public License
+ *     along with MehlboxKonsole2.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package mk2.config;
 
 import mk2.auth.Mk2LdapAuthoritiesPopulator;
@@ -59,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http
 				.authorizeRequests()
-				.antMatchers("/templates/error", "/static/**", "/generated/**", "/webjars/**", "/css/**").permitAll()
+				.antMatchers("/templates/error", "/static/**", "/generated/**", "/webjars/**", "/css/**", "/favicon.ico").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()

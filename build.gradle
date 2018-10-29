@@ -15,11 +15,26 @@
  *     along with MehlboxKonsole2.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*
+ * This file is part of MehlboxKonsole2.
+ *
+ *     MehlboxKonsole2 is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU Affero General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     MehlboxKonsole2 is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU Affero General Public License for more details.
+ *
+ *     You should have received a copy of the GNU Affero General Public License
+ *     along with MehlboxKonsole2.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 buildscript {
 	ext {
-		springBootVersion = '2.0.5.RELEASE'
-
-		mockitoVersion = '1.10.19'
+		springBootVersion = '2.0.6.RELEASE'
 
 		webBootstrapVersion = '3.3.6'
 		webBootstrapTableVersion = '1.10.1'
@@ -35,46 +50,25 @@ buildscript {
 
 plugins {
 	id 'java'
-	id "org.springframework.boot" version "2.0.5.RELEASE"
+	id "org.springframework.boot" version "2.0.6.RELEASE"
 	id 'io.spring.dependency-management' version "1.0.6.RELEASE"
-	id 'com.moowork.node' version '1.2.0'
 }
 
-node {
-	version = '9.4.0'
-	npmVersion = '5.6.0'
-	download = true
-
-	// Set the work directory for unpacking node
-	workDir = file("${project.buildDir}/nodejs")
-
-	// Set the work directory for NPM
-	npmWorkDir = file("${project.buildDir}/npm")
-
-	// Set the work directory where node_modules should be located
-	nodeModulesDir = file("${project.projectDir}")
-}
 
 jar {
 	baseName = 'mk2-prototype'
 	version = '0.1.1'
 }
 sourceCompatibility = 1.8
-targetCompatibility = 1.8
+targetCompatibility = 1.8 
 
 repositories {
 	mavenCentral()
 }
 
-task runSass(type: NpmTask, dependsOn: compileJava) {
-	args = ['run', 'sass']
-}
-
 clean.doLast {
 	file('src/main/resources/static/generated').deleteDir()
 }
-
-compileJava.finalizedBy runSass
 
 sourceSets {
 	main {
