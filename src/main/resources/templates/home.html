@@ -16,19 +16,18 @@
   -->
 
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-      layout:decorate="~{ layout/application }">
-<head>
-    <meta charset="UTF-8" />
-    <title>MehlboxKonsole - Home</title>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/header :: head">
+    <title>Mehlbox Konsole - Home</title>
 </head>
 <body>
-<div layout:fragment="content">
 
-    <h1>Welcome <span th:text="${user.displayName}" /></h1>
+<header th:replace="fragments/header :: header">HEADER GOES HERE</header>
+
+<div class="container">
+
+    <h2>Welcome <span th:text="${user.displayName}"/></h2>
 
     <div th:if="${message}" class="bs-callout bs-callout-success">
         <h4 th:text="${message}">Success message</h4>
@@ -38,11 +37,21 @@
         <p>What do you want to do today</p>
 
         <ul>
-            <li><a href="/user/showAddresses" th:href="@{/user/showAddresses}" th:text="#{mk2.action.showEmailAddresses}">Show Email Addresses</a></li>
-            <li><a href="/user/changePassword" th:href="@{/user/changePassword}" th:text="#{mk2.action.changePassword}">Change Password</a></li>
-            <li sec:authorize="hasRole('ROLE_DOMAIN_OWNER')"><a href="/domain/showMyDomains" th:href="@{/domain/showMyDomains}" th:text="#{mk2.action.showMyDomains}">Show My Domains</a></li>
+            <li><a href="/user/showAddresses" th:href="@{/user/showAddresses}"
+                   th:text="#{mk2.action.showEmailAddresses}">Show Email Addresses</a></li>
+            <li><a href="/user/changePassword" th:href="@{/user/changePassword}"
+                   th:text="#{mk2.action.changePassword}">Change Password</a></li>
+            <li sec:authorize="hasRole('ROLE_DOMAIN_OWNER')"><a href="/domain/showMyDomains"
+                                                                th:href="@{/domain/showMyDomains}"
+                                                                th:text="#{mk2.action.showMyDomains}">Show My
+                Domains</a></li>
         </ul>
     </div>
 </div>
+
+<footer th:replace="fragments/footer :: footer">FOOTER GOES HERE</footer>
+
+<section th:replace="fragments/footer :: scripts">SCRIPTS GO HERE</section>
+
 </body>
 </html>

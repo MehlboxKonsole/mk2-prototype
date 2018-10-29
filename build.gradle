@@ -17,10 +17,7 @@
 
 buildscript {
 	ext {
-		springBootVersion = '2.0.4.RELEASE'
-		springLdapVersion = '2.3.2.RELEASE'
-
-		mockitoVersion = '1.10.19'
+		springBootVersion = '2.0.6.RELEASE'
 
 		webBootstrapVersion = '3.3.6'
 		webBootstrapTableVersion = '1.10.1'
@@ -36,21 +33,33 @@ buildscript {
 
 plugins {
 	id 'java'
-	id "org.springframework.boot" version "2.0.4.RELEASE"
+	id "org.springframework.boot" version "2.0.6.RELEASE"
 	id 'io.spring.dependency-management' version "1.0.6.RELEASE"
 }
+
 
 jar {
 	baseName = 'mk2-prototype'
 	version = '0.1.1'
 }
 sourceCompatibility = 1.8
-targetCompatibility = 1.8
+targetCompatibility = 1.8 
 
 repositories {
 	mavenCentral()
 }
 
+clean.doLast {
+	file('src/main/resources/static/generated').deleteDir()
+}
+
+sourceSets {
+	main {
+		resources {
+			exclude "**/sass/**"
+		}
+	}
+}
 
 dependencies {
 	compile(
@@ -61,17 +70,14 @@ dependencies {
 			"org.springframework.security:spring-security-ldap",
 			"org.springframework.ldap:spring-ldap-core",
 
-//			"org.thymeleaf:thymeleaf-spring4",
 			"org.thymeleaf.extras:thymeleaf-extras-springsecurity4",
 			"nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
 
-
 			"org.springframework:spring-tx",
-			"org.apache.directory.server:apacheds-server-jndi:1.5.7",
-
 
 			"org.webjars:bootstrap:${webBootstrapVersion}",
 			"org.webjars.bower:bootstrap-table:${webBootstrapTableVersion}",
+
 			"org.webjars:jquery:${webJQueryVersion}",
 
 			'javax.inject:javax.inject:1',
@@ -88,12 +94,7 @@ dependencies {
 
 	testCompile(
 			"org.springframework.boot:spring-boot-starter-test",
-//			"org.mockito:mockito-core:${mockitoVersion}"
 	)
 }
 
-bootRun {
-	// support passing -Dsystem.property=value to bootRun task
-	systemProperties = System.properties
-}
 

@@ -17,19 +17,19 @@
 
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{ layout/application }">
-<head>
-    <meta charset="UTF-8" />
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/header :: head">
     <title>MehlboxKonsole - Add An Email Address</title>
 </head>
 <body>
-<div layout:fragment="content">
 
-    <h1 th:text="#{mk2.title.addEmailAddress}">New E-mail Address</h1>
+<header th:replace="fragments/header :: header">HEADER GOES HERE</header>
+
+<div th:fragment="content">
 
     <div class="container">
+        <h2 th:text="#{mk2.title.addEmailAddress}">New E-mail Address</h2>
+
         <form th:action="@{/user/emailAddress/add}" action="/user/emailAddress/add" method="POST" th:object="${address}">
 
             <div th:if="${#fields.hasErrors('*')}" class="bs-callout bs-callout-danger">
@@ -43,19 +43,24 @@
                 <label class="control-label col-xs-2" th:text="#{mk2.form.addEmailAddress.newEmailAddress}">New address: </label>
                 <div class="col-xs-8 input-group">
                     <input id="mk2_email_local_part" name="localPart" type="text" class="form-control" th:value="*{localPart}" />
-                    <span class="input-group-addon">@</span>
-                    <select id="mk2_email_domain" name="domain" class="form-control">
+                    <i class="fa fa-at" style="font-size: 2rem; padding: 1px 2px;"></i>
+                    <select id="mk2_email_domain" name="domain" class="custom-select">
                         <option th:each="domain: ${ownedDomains}" th:value="${domain.name}" th:text="${domain.name}" th:selected="${domain.name.equals(address.domain)}">domain</option>
                     </select>
+
+                    <div class="button-group" role="group" aria-label="Form submission" style="padding-left: 1em;">
+                        <button type="submit" id="mk2_addEmailAddress_submit" name="submit" value="Create" class="btn btn-primary">Create</button>
+                    </div>
+
                 </div>
 
-                <div class="button-group">
-                    <button type="submit" id="mk2_addEmailAddress_submit" name="submit" value="Create">Create</button>
-                </div>
             </div>
         </form>
 
     </div>
 </div>
+
+<footer th:replace="fragments/footer :: footer">FOOTER GOES HERE</footer>
+<section th:replace="fragments/footer :: scripts">SCRIPTS GO HERE</section>
 </body>
 </html>
