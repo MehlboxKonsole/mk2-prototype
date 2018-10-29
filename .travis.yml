@@ -1,4 +1,4 @@
 language: java
 jdk: openjdk8
 
-script: make clean build-frontend build-backend test
+script: make init build-frontend build-backend test
