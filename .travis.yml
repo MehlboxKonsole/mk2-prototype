@@ -1,5 +1,4 @@
 language: java
 jdk: openjdk8
 
-install:
-  - ./gradlew npmInstall assemble -s
+script: make clean build-frontend build-backend test
