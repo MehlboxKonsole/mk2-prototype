@@ -15,21 +15,38 @@
   ~     along with MehlboxKonsole2.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
+<!--
+  ~ This file is part of MehlboxKonsole2.
+  ~
+  ~     MehlboxKonsole2 is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU Affero General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     MehlboxKonsole2 is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU Affero General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU Affero General Public License
+  ~     along with MehlboxKonsole2.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="head">
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          crossorigin="anonymous"
-          th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
-          crossorigin="anonymous"
-          th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css">-->
+
     <link rel="stylesheet" href="../../static/css/mk2-main.css" th:href="@{/css/mk2-main.css}"/>
 
 
@@ -55,14 +72,18 @@
     </div>
     <footer th:replace="fragments/footer :: footer">&copy; 2014 The Static Templates</footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"
-            th:src="@{/webjars/jquery/2.2.3/jquery.min.js}"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-            th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
 
-    <!-- suboptimal here, but jquery has to be loaded before we can load this script... -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"
-            th:src="@{/webjars/bootstrap-table/1.10.1/dist/bootstrap-table.min.js}"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
 
     <!-- @formatter:off -->
     <!-- Piwik -->
@@ -73,16 +94,28 @@
         _paq.push(["setDomains", ["e-mehlbox.eu"]]);
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
-        (function() {
-            var u = [[@{${@environment.getProperty('mk2.piwik.url')}}]];
-            _paq.push(['setTrackerUrl', [[@{${@environment.getProperty('mk2.piwik.full_url')}}]]]);
-            _paq.push(['setSiteId', [[@{${@environment.getProperty('mk2.piwik.id')}}]]]);
-            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        (function () {
+            var u = [[;@{${@environment.getProperty('mk2.piwik.url')}
+            }
+        ]]
+            _paq.push(['setTrackerUrl', [[;@{${@environment.getProperty('mk2.piwik.full_url')}
+            }
+        ]]])
+            _paq.push(['setSiteId', [[;@{${@environment.getProperty('mk2.piwik.id')}
+            }
+        ]]])
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+            g.type = 'text/javascript';
+            g.async = true;
+            g.defer = true;
+            g.src = u + 'piwik.js';
+            s.parentNode.insertBefore(g, s);
         })();
         /*]]>*/
     </script>
-    <noscript><p><img th:src="@{${@environment.getProperty('mk2.piwik.full_url')}(idsite=@{${@environment.getProperty('mk2.piwik.id')}}, rec=1)}" style="border:0;" alt="" /></p></noscript>
+    <noscript><p><img
+            th:src="@{${@environment.getProperty('mk2.piwik.full_url')}(idsite=@{${@environment.getProperty('mk2.piwik.id')}}, rec=1)}"
+            style="border:0;" alt=""/></p></noscript>
     <!-- End Piwik Code -->
     <!-- @formatter:on -->
 </div>

@@ -1,4 +1,4 @@
-/*
+/*!
  * This file is part of MehlboxKonsole2.
  *
  *     MehlboxKonsole2 is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
  *     along with MehlboxKonsole2.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*
+/*!
  * This file is part of MehlboxKonsole2.
  *
  *     MehlboxKonsole2 is free software: you can redistribute it and/or modify
@@ -27,69 +27,11 @@
  *     but WITHOUT ANY WARRANTY; without even the implied warranty of
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *     GNU Affero General Public License for more details.
- *
+ *Hmm
  *     You should have received a copy of the GNU Affero General Public License
  *     along with MehlboxKonsole2.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-header {
-    margin-bottom: 2rem;
-}
-
-/* Found here: http://cpratt.co/twitter-bootstrap-callout-css-styles/ */
-.bs-callout {
-    padding: 20px;
-    margin: 20px 0;
-    border: 1px solid #eee;
-    border-left-width: 5px;
-    border-radius: 3px;
-}
-.bs-callout h4 {
-    margin-top: 0;
-    margin-bottom: 5px;
-}
-.bs-callout p:last-child {
-    margin-bottom: 0;
-}
-.bs-callout code {
-    border-radius: 3px;
-}
-.bs-callout+.bs-callout {
-    margin-top: -5px;
-}
-.bs-callout-default {
-    border-left-color: #777;
-}
-.bs-callout-default h4 {
-    color: #777;
-}
-.bs-callout-primary {
-    border-left-color: #428bca;
-}
-.bs-callout-primary h4 {
-    color: #428bca;
-}
-.bs-callout-success {
-    border-left-color: #5cb85c;
-}
-.bs-callout-success h4 {
-    color: #5cb85c;
-}
-.bs-callout-danger {
-    border-left-color: #d9534f;
-}
-.bs-callout-danger h4 {
-    color: #d9534f;
-}
-.bs-callout-warning {
-    border-left-color: #f0ad4e;
-}
-.bs-callout-warning h4 {
-    color: #f0ad4e;
-}
-.bs-callout-info {
-    border-left-color: #5bc0de;
-}
-.bs-callout-info h4 {
-    color: #5bc0de;
-}
+$fa-font-path: "//netdna.bootstrapcdn.com/font-awesome/4.7.0/fonts";
+@import "../../../../node_modules/bootstrap/scss/bootstrap";
+@import "../../../../node_modules/font-awesome/scss/font-awesome";

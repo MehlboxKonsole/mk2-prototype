@@ -69,3 +69,19 @@ docker run -itd --name slapd -e SLAPD_DOMAIN=e-mehlbox.eu -e SLAPD_PASSWORD=root
 If you run docker within a virtual machine (e.g. Docker Machine), you can access the OpenLDAP instance via
 _ldap://<docker-machine-address>:389_. If you run Docker natively on Linux, the URL is simply _ldap://localhost:389_.
 
+To create a backup of our LDAP directory, run:
+
+```bash
+sudo ldapsearch -z max -LLL -Wx -D"cn=admin,dc=e-mehlbox,dc=eu" -b "dc=e-mehlbox,dc=eu" >> ldap-backup-$(date +%Y%m%d).ldapsearch.ldif
+
+```
+
+Then, import it with (example for a file created on November, 07th 2018, replace filename accordingly):
+```bash
+ldapmodify -c -Wx -D "cn=admin,dc=e-mehlbox,dc=eu" -a -f ldap-backup-20181107.ldapsearch.ldif
+```
+
+If you do not have `ldapmodify` handy, try something like this (*untested*!):
+```bash
+cat ldap-backup-20181107.ldapsearch.ldif | docker exec -ti slapd ldapmodify -c -Wx -D "cn=admin,dc=e-mehlbox,dc=eu" -a
+```
