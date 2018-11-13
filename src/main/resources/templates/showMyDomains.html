@@ -17,28 +17,33 @@
 
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{ layout/application }">
-<head>
-    <meta charset="UTF-8" />
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/header :: head">
     <title>MehlboxKonsole - My Domains</title>
 </head>
+
 <body>
-<div layout:fragment="content">
+<header th:replace="fragments/header :: header">HEADER GOES HERE</header>
 
-    <h1 th:text="#{mk2.title.showMyDomains}">My Domains</h1>
-
-    <div th:if="${domains.isEmpty()}" class="bs-callout bs-callout-info" th:text="#{mk2.info.noDomains}"></div>
-
+<div th:fragment="content">
     <div class="container">
+        <h1 th:text="#{mk2.title.showMyDomains}">My Domains</h1>
 
-        <ul id="mk2_account_my_domains">
-            <li class="mk2_account_my_domains" th:each="domain : ${domains}">
-                <span th:text="${domain.getName(true)}" th:remove="tag"></span>
-            </li>
-        </ul>
+        <div th:if="${domains.isEmpty()}" class="bs-callout bs-callout-info" th:text="#{mk2.info.noDomains}"></div>
+
+        <div class="container">
+
+            <ul id="mk2_account_my_domains">
+                <li class="mk2_account_my_domains" th:each="domain : ${domains}">
+                    <span th:text="${domain.getName(true)}" th:remove="tag"></span>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
+
+<footer th:replace="fragments/footer :: footer">FOOTER GOES HERE</footer>
+<section th:replace="fragments/footer :: scripts">SCRIPTS GO HERE</section>
+
 </body>
 </html>

@@ -287,8 +287,10 @@ typings/
 # Serverless directories
 .serverless
 
+# FuseBox cache
+.fusebox/
+
 
 # End of https://www.gitignore.io/api/node
 
-
-src/main/resources/static/generated
+**/generated/**
