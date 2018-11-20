@@ -22,3 +22,5 @@ init: clean
 
 run: clean build-frontend
 	./gradlew bootRun
+
+release: init build-frontend build-backend
