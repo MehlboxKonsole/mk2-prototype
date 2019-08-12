@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/mk2-prototype.iml" filepath="$PROJECT_DIR$/mk2-prototype.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk2-prototype.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mk2-prototype.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk2-prototype.test.iml" filepath="$PROJECT_DIR$/.idea/modules/mk2-prototype.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk2-prototype_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mk2-prototype_main.iml" group="mk2-prototype" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mk2-prototype_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mk2-prototype_test.iml" group="mk2-prototype" />
     </modules>
   </component>
 </project>
