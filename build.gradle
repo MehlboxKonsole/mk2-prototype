@@ -18,11 +18,7 @@
 buildscript {
 	ext {
 		springBootVersion = '2.1.7.RELEASE'
-
-		webBootstrapVersion = '4.3.1'
-		webBootstrapTableVersion = '1.14.2'
-		webJQueryVersion = '3.4.1'
-	}
+    }
 	repositories {
 		mavenCentral()
 	}
@@ -74,11 +70,6 @@ dependencies {
 			"nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
 
 			"org.springframework:spring-tx",
-
-			"org.webjars:bootstrap:${webBootstrapVersion}",
-			"org.webjars.bower:bootstrap-table:${webBootstrapTableVersion}",
-
-			"org.webjars:jquery:${webJQueryVersion}",
 
 			'javax.inject:javax.inject:1',
 	)
