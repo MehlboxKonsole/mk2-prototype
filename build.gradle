@@ -34,11 +34,11 @@
 
 buildscript {
 	ext {
-		springBootVersion = '2.1.0.RELEASE'
+		springBootVersion = '2.1.6.RELEASE'
 
-		webBootstrapVersion = '3.3.6'
-		webBootstrapTableVersion = '1.10.1'
-		webJQueryVersion = '2.2.3'
+		webBootstrapVersion = '4.3.1'
+		webBootstrapTableVersion = '1.14.2'
+		webJQueryVersion = '3.4.1'
 	}
 	repositories {
 		mavenCentral()
@@ -50,14 +50,14 @@ buildscript {
 
 plugins {
 	id 'java'
-	id "org.springframework.boot" version "2.1.0.RELEASE"
-	id 'io.spring.dependency-management' version "1.0.6.RELEASE"
+	id "org.springframework.boot" version "2.1.6.RELEASE"
+	id 'io.spring.dependency-management' version "1.0.8.RELEASE"
 }
 
 
 jar {
 	baseName = 'mk2-prototype'
-	version = '0.2.0'
+	version = '0.2.1'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8 
