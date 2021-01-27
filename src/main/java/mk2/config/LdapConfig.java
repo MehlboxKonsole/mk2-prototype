@@ -18,12 +18,11 @@
 package mk2.config;
 
 import mk2.mapper.Mk2LdapUsernameToDnMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.security.ldap.LdapUsernameToDnMapper;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsManager;
@@ -33,26 +32,21 @@ import org.springframework.security.ldap.userdetails.LdapUserDetailsManager;
 @EnableConfigurationProperties
 public class LdapConfig {
 
-    @Bean
-    @ConfigurationProperties(prefix = "mk2.ldap.context-source")
-    public LdapContextSource contextSource() {
-        return new LdapContextSource();
-    }
+  private final LdapContextSource contextSource;
 
-    @Bean
-    public LdapTemplate ldapTemplate() {
-        return new LdapTemplate(contextSource());
-    }
+  public LdapConfig(@Autowired LdapContextSource contextSource) {
+    this.contextSource = contextSource;
+  }
 
-    @Bean
-    public LdapUsernameToDnMapper getLdapUsernameToDnMapper() {
-        return new Mk2LdapUsernameToDnMapper();
-    }
+  @Bean
+  public LdapUsernameToDnMapper getLdapUsernameToDnMapper() {
+    return new Mk2LdapUsernameToDnMapper();
+  }
 
-    @Bean
-    public LdapUserDetailsManager getUserDetailsManager() {
-        LdapUserDetailsManager ldapUserDetailsManager = new LdapUserDetailsManager(contextSource());
-        ldapUserDetailsManager.setUsernameMapper(getLdapUsernameToDnMapper());
-        return ldapUserDetailsManager;
-    }
+  @Bean
+  public LdapUserDetailsManager getUserDetailsManager() {
+    LdapUserDetailsManager ldapUserDetailsManager = new LdapUserDetailsManager(contextSource);
+    ldapUserDetailsManager.setUsernameMapper(getLdapUsernameToDnMapper());
+    return ldapUserDetailsManager;
+  }
 }
