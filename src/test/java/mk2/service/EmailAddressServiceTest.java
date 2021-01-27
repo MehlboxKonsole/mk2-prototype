@@ -61,7 +61,6 @@ public class EmailAddressServiceTest {
 			.add("dc", "eu")
 			.add("dc", "e-mehlbox")
 			.add("ou", "Users")
-			.add("ou", "internal")
 			.add("cn", "test.user")
 			.build()
 			.toString();
