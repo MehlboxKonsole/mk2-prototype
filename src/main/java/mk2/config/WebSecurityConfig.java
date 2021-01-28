@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http
 				.authorizeRequests()
-				.antMatchers("/templates/error", "/static/**", "/generated/**", "/webjars/**", "/css/**", "/favicon.ico").permitAll()
+				.antMatchers("/imprint", "/templates/error", "/static/**", "/generated/**", "/webjars/**", "/css/**", "/favicon.ico").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
@@ -73,10 +73,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		// FIXME DN pattern needs to be configurable
 		auth
 				.ldapAuthentication()
 				.ldapAuthoritiesPopulator(ldapAuthoritiesPopulator())
-				.userDnPatterns("cn={0}@e-mehlbox.eu,ou=internal,ou=Users")
+				.userDnPatterns("uid={0},ou=Users")
 				.groupSearchBase(LDAP_GROUP_SEARCH_BASE)
 				.groupSearchFilter(LDAP_GROUP_SEARCH_FILTER)
 				.contextSource(contextSource);

@@ -14,8 +14,8 @@ This prototype is to give us a spike and will provide the following functions:
 Prerequisites
 ---
 All you need is:
-* Java 8
-* Access to a LDAP server
+* Java 1
+* Access to an LDAP server
 
 We use a specific object class (_qmailUser_) on the Mehlbox. To make the set up as painless as possible a Docker
 image exists with this object class already set up. See [Development LDAP server set up](#development-ldap-server-set-up)
