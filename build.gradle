@@ -15,31 +15,17 @@
  *     along with MehlboxKonsole2.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-buildscript {
-	ext {
-		springBootVersion = "2.4.2"
-    }
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
-}
-
 plugins {
 	id "java"
 	id "org.springframework.boot" version "2.4.2"
 	id "io.spring.dependency-management" version "1.0.11.RELEASE"
 	id("se.patrikerdes.use-latest-versions") version "0.2.15"
 	id ("com.github.ben-manes.versions") version "0.36.0"
+	id ("com.github.node-gradle.node") version "2.2.4"
 }
 
-
-jar {
-	baseName = "mk2-prototype"
-	version = "0.3.1"
-}
+archivesBaseName = "mk2-prototype"
+version = "0.3.1"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8 
 
@@ -91,6 +77,16 @@ dependencies {
 	}
 	testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 	testImplementation("org.mockito:mockito-core:3.7.7")
+}
+
+task generateSass(type: NpxTask) {
+	dependsOn("npmInstall")
+	command = "node-sass"
+	args = ["src/main/resources/sass/mk2.scss", "src/main/resources/static/generated/mk2.css"]
+}
+
+tasks.named("build") {
+	dependsOn("generateSass")
 }
 
 test {
