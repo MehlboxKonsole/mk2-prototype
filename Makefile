@@ -5,7 +5,7 @@ clean:
 	./gradlew clean
 
 build-frontend:
-	npm run sass
+	./gradlew generateSass
 
 build-backend:
 	./gradlew build
@@ -18,9 +18,11 @@ package: test
 
 init: clean
 	rm -rf node_modules
-	npm install
 
 run: clean build-frontend
 	./gradlew bootRun
+
+docker: clean build-frontend build-backend
+	docker build . -t mk2-prototype
 
 release: init build-frontend build-backend
