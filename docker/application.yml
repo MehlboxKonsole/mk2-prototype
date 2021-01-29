@@ -1,0 +1,22 @@
+spring:
+  ldap:
+    base: "LDAP_BASE"
+    username: "LDAP_USERNAME"
+    password: "LDAP_PASSWORD"
+    urls: "LDAP_URLS"
+
+mk2:
+  ldap:
+    user-dn-mapper:
+      usernamePattern: "%s"
+      userAttribute: "uid"
+      userBaseDn: "ou=Users"
+
+logging:
+  level:
+    mk2: INFO
+    org:
+      springframework:
+        security:
+          ldap: INFO
+        ldap: INFO

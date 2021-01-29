@@ -14,7 +14,7 @@ This prototype is to give us a spike and will provide the following functions:
 Prerequisites
 ---
 All you need is:
-* Java 1
+* Java 11
 * Access to an LDAP server
 
 We use a specific object class (_qmailUser_) on the Mehlbox. To make the set up as painless as possible a Docker
@@ -84,4 +84,39 @@ ldapmodify -c -Wx -D "cn=admin,dc=e-mehlbox,dc=eu" -a -f ldap-backup-20181107.ld
 If you do not have `ldapmodify` handy, try something like this (*untested*!):
 ```bash
 cat ldap-backup-20181107.ldapsearch.ldif | docker exec -ti slapd ldapmodify -c -Wx -D "cn=admin,dc=e-mehlbox,dc=eu" -a
+```
+
+# Docker
+
+Run `make docker` in order to create a new Docker image, called "mk2-prototype". 
+For the time being, the [Dockerfile](./Dockerfile) contains the version number, used in the JAR file name. So, every new
+release needs an update of this file. This is subject to change.
+
+## Running the docker image
+I use the following command to run the image locally. It expects your Docker internal network using 172.17.0.0/16 IP 
+addresses. Check by e.g. running a `ubuntu:latest` image, install the `iproute2` package and check the IP addresses with
+`ip addr show`.
+
+Additionally, this expects the slapd running as Docker container as described earlier. Adjust the IP address accordingly.
+(Yes, we could connect these containers via Docker networks BUT on the target environment, the slapd runs directly on the
+bare metal. This is to "simulate" this situation.)
+
+Anyways, the IP network usually is that exact network, so try it:
+```shell
+docker run -d \
+  --name mk2-prototype-test \
+  -eLDAP_USERNAME="cn=admin,dc=e-mehlbox,dc=eu" \
+  -eLDAP_BASE="dc=e-mehlbox,dc=eu" \
+  -eLDAP_HOST="ldap:\/\/172.17.0.2:389" \
+  -p 8080:8080 \
+  mk2-prototype
+```
+
+## Publishing to Docker Hub
+Once you are happy with the local image, run the following commands to publish.
+Replace `TAGNAME` with the version in the form `x.y.z`:
+
+```shell
+docker tag mk2-protoype:latest daincredibleholg/mk2-protoype:TAGNAME
+docker push daincredibleholg/mk2-prototype:TAGNAME
 ```
