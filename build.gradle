@@ -46,7 +46,7 @@ sourceSets {
 }
 
 dependencies {
-	compile(
+	implementation(
 			"org.springframework.boot:spring-boot-starter-web",
 			"org.springframework.boot:spring-boot-starter-actuator",
 			"org.springframework.boot:spring-boot-starter-security",
@@ -54,6 +54,9 @@ dependencies {
 			"org.springframework.security:spring-security-ldap",
 			"org.springframework.ldap:spring-ldap-core",
 			'org.springframework.boot:spring-boot-starter-validation',
+
+			"org.springframework.boot:spring-boot-properties-migrator",
+			"org.springframework.boot:spring-boot-devtools",
 
 			"org.thymeleaf.extras:thymeleaf-extras-springsecurity5",
 			"nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect",
@@ -63,13 +66,11 @@ dependencies {
 			"javax.inject:javax.inject:1",
 	)
 
+	// See https://app.snyk.io/org/daincredibleholg-github-marketplace/project/6bbd0aad-5dfd-4580-b41d-a4c1e7b45b82?utm_campaign=weekly_report&utm_source=Project#issue-SNYK-JAVA-ORGCODEHAUSGROOVY-1048694
+	implementation("org.codehaus.groovy:groovy:2.5.14")
+
 	annotationProcessor(
 			"org.springframework.boot:spring-boot-configuration-processor"
-	)
-
-	runtime(
-			"org.springframework.boot:spring-boot-properties-migrator",
-			"org.springframework.boot:spring-boot-devtools",
 	)
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
