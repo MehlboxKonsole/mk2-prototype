@@ -4,15 +4,15 @@
   "description": "[![Known Vulnerabilities](https://snyk.io/test/github/MehlboxKonsole/mk2-prototype/badge.svg)](https://snyk.io/test/github/MehlboxKonsole/mk2-prototype) [![Build Status](https://travis-ci.org/MehlboxKonsole/mk2-prototype.svg?branch=master)](https://travis-ci.org/MehlboxKonsole/mk2-prototype)",
   "main": "index.js",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "5.15.2",
-    "autoprefixer": "10.2.3",
-    "bootstrap": "4.6.0",
+    "@fortawesome/fontawesome-free": "6.4.2",
+    "autoprefixer": "10.4.16",
+    "bootstrap": "4.6.2",
     "font-awesome": "^4.7.0",
     "popper.js": "1.16.1",
-    "postcss-cli": "8.3.1"
+    "postcss-cli": "10.1.0"
   },
   "devDependencies": {
-    "node-sass": "5.0.0"
+    "node-sass": "9.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
