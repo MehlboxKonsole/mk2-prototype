@@ -20,7 +20,6 @@ package mk2.service;
 import mk2.exception.DomainNotAvailableException;
 import mk2.exception.EmailAddressAlreadyInUseException;
 import mk2.exception.EmailAddressNotAssignedException;
-import mk2.model.Mk2Domain;
 import mk2.model.Mk2User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,10 +33,10 @@ import javax.naming.ldap.LdapName;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.isIn;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.in;
+import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -82,11 +81,7 @@ public class EmailAddressServiceTest {
     Mk2User user = new Mk2User();
     user.addEmailAddress(email);
 
-    Mk2Domain domain = new Mk2Domain();
-    domain.setName(domainName);
-
     when(userService.findByDn(userDn)).thenReturn(user);
-
 
     assertThrows(EmailAddressAlreadyInUseException.class, () -> emailAddressService.addAddress(userDn, email));
   }
@@ -202,6 +197,6 @@ public class EmailAddressServiceTest {
 
     Mk2User actualUser = emailAddressService.removeEmailAddressFromUser(email, userFullDn.toString());
 
-    assertThat(email, not(isIn(actualUser.getEmailAddresses())));
+    assertThat(email, not(is(in(actualUser.getEmailAddresses()))));
   }
 }
